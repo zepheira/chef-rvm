@@ -21,7 +21,7 @@
 
 include Chef::ZRVM::StringHelpers
 include Chef::ZRVM::RubyHelpers
-include Chef::ZZ_RVM::GemsetHelpers
+include Chef::ZRVM::GemsetHelpers
 
 def load_current_resource
   if new_resource.ruby_string
