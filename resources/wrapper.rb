@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Resource:: wrapper
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>

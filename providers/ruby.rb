@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Provider:: ruby
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
@@ -19,13 +19,13 @@
 # limitations under the License.
 #
 
-include Chef::RVM::StringHelpers
-include Chef::RVM::RubyHelpers
+include Chef::ZRVM::StringHelpers
+include Chef::ZRVM::RubyHelpers
 
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @ruby_string  = new_resource.ruby_string
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(
+  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(
     new_resource.user, "default",
     :rvm_rubygems_version => new_resource.rubygems_version,
     :source_environment => false
@@ -36,7 +36,7 @@ action :install do
   next if skip_ruby?
 
   if ruby_installed?(@ruby_string)
-    Chef::Log.debug("rvm_ruby[#{@rubie}] is already installed, so skipping")
+    Chef::Log.debug("z_rvm_ruby[#{@rubie}] is already installed, so skipping")
   else
     install_start   = Time.now
     install_options = {:rvm_by_path => true}
@@ -44,27 +44,27 @@ action :install do
 
     install_ruby_dependencies @rubie
 
-    Chef::Log.info("Building rvm_ruby[#{@rubie}], this could take a while...")
+    Chef::Log.info("Building z_rvm_ruby[#{@rubie}], this could take a while...")
 
     if @rvm_env.install(@rubie, install_options)
-      Chef::Log.info("Installation of rvm_ruby[#{@rubie}] was successful.")
+      Chef::Log.info("Installation of z_rvm_ruby[#{@rubie}] was successful.")
       @rvm_env.use @rubie
       update_installed_rubies
       new_resource.updated_by_last_action(true)
 
-      Chef::Log.info("Importing initial gemsets for rvm_ruby[#{@rubie}]")
+      Chef::Log.info("Importing initial gemsets for z_rvm_ruby[#{@rubie}]")
       if @rvm_env.gemset_initial
-        Chef::Log.debug("Initial gemsets for rvm_ruby[#{@rubie}] are installed")
+        Chef::Log.debug("Initial gemsets for z_rvm_ruby[#{@rubie}] are installed")
       else
         Chef::Log.warn(
-          "Failed to install initial gemsets for rvm_ruby[#{@rubie}] ")
+          "Failed to install initial gemsets for z_rvm_ruby[#{@rubie}] ")
       end
     else
-      Chef::Log.warn("Failed to install rvm_ruby[#{@rubie}]. " +
-        "Check logs in #{::RVM.path}/log/#{@rubie}")
+      Chef::Log.warn("Failed to install z_rvm_ruby[#{@rubie}]. " +
+        "Check logs in #{::ZRVM.path}/log/#{@rubie}")
     end
 
-    Chef::Log.info("rvm_ruby[#{@rubie}] build time was " +
+    Chef::Log.info("z_rvm_ruby[#{@rubie}] build time was " +
       "#{(Time.now - install_start)/60.0} minutes.")
   end
 end
@@ -73,18 +73,18 @@ action :uninstall do
   next if skip_ruby?
 
   if ruby_installed?(@rubie)
-    Chef::Log.info("Uninstalling rvm_ruby[#{@rubie}]")
+    Chef::Log.info("Uninstalling z_rvm_ruby[#{@rubie}]")
 
     if @rvm_env.uninstall(@rubie, :rvm_by_path => true)
       update_installed_rubies
-      Chef::Log.debug("Uninstallation of rvm_ruby[#{@rubie}] was successful.")
+      Chef::Log.debug("Uninstallation of z_rvm_ruby[#{@rubie}] was successful.")
       new_resource.updated_by_last_action(true)
     else
-      Chef::Log.warn("Failed to uninstall rvm_ruby[#{@rubie}]. " +
-        "Check logs in #{::RVM.path}/log/#{@rubie}")
+      Chef::Log.warn("Failed to uninstall z_rvm_ruby[#{@rubie}]. " +
+        "Check logs in #{::ZRVM.path}/log/#{@rubie}")
     end
   else
-    Chef::Log.debug("rvm_ruby[#{@rubie}] was not installed, so skipping")
+    Chef::Log.debug("z_rvm_ruby[#{@rubie}] was not installed, so skipping")
   end
 end
 
@@ -92,18 +92,18 @@ action :remove do
   next if skip_ruby?
 
   if ruby_installed?(@rubie)
-    Chef::Log.info("Removing rvm_ruby[#{@rubie}]")
+    Chef::Log.info("Removing z_rvm_ruby[#{@rubie}]")
 
     if @rvm_env.remove(@rubie, :rvm_by_path => true)
       update_installed_rubies
-      Chef::Log.debug("Removal of rvm_ruby[#{@rubie}] was successful.")
+      Chef::Log.debug("Removal of z_rvm_ruby[#{@rubie}] was successful.")
       new_resource.updated_by_last_action(true)
     else
-      Chef::Log.warn("Failed to remove rvm_ruby[#{@rubie}]. " +
-        "Check logs in #{::RVM.path}/log/#{@rubie}")
+      Chef::Log.warn("Failed to remove z_rvm_ruby[#{@rubie}]. " +
+        "Check logs in #{::ZRVM.path}/log/#{@rubie}")
     end
   else
-    Chef::Log.debug("rvm_ruby[#{@rubie}] was not installed, so skipping")
+    Chef::Log.debug("z_rvm_ruby[#{@rubie}] was not installed, so skipping")
   end
 end
 

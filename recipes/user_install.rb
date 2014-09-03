@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Recipe:: user_install
 #
 # Copyright 2011 Fletcher Nichol
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'rvm'
+include_recipe 'z_rvm'
 
 install_pkg_prereqs
 

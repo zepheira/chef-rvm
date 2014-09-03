@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Library: gem_package resource monkey patch
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
@@ -28,7 +28,7 @@ def patch_gem_package
     def initialize(name, run_context=nil)
       super
       @resource_name = :gem_package
-      @provider = Chef::Provider::Package::RVMRubygems
+      @provider = Chef::Provider::Package::ZRVMRubygems
     end
   end
 end

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Recipe:: vagrant
 #
 # Copyright 2011, Fletcher Nichol

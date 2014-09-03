@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Resource:: gem
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
@@ -33,5 +33,5 @@ attribute :user,          :kind_of => String
 def initialize(*args)
   super
   @action = :install
-  @provider = Chef::Provider::Package::RVMRubygems
+  @provider = Chef::Provider::Package::ZRVMRubygems
 end

@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: rvm
-# Library:: RVM::Shell::ChefWrapper
+# Cookbook Name:: z_rvm
+# Library:: ZRVM::Shell::ChefWrapper
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -22,7 +22,7 @@
 def create_rvm_shell_chef_wrapper
   require 'chef/mixin/command'
 
-  klass = Class.new(::RVM::Shell::AbstractWrapper) do
+  klass = Class.new(::ZRVM::Shell::AbstractWrapper) do
     include Chef::Mixin::Command
 
     attr_accessor :current
@@ -37,7 +37,7 @@ def create_rvm_shell_chef_wrapper
     def run_command(command)
       command = "true" if command.to_s.strip.empty?
       with_shell_instance do
-        Chef::Log.debug("RVM::Shell::ChefWrapper executing: " +
+        Chef::Log.debug("ZRVM::Shell::ChefWrapper executing: " +
           "[#{wrapped_command(command)}]")
         stdin.puts wrapped_command(command)
         stdin.close
@@ -50,7 +50,7 @@ def create_rvm_shell_chef_wrapper
     # Runs a command, ensuring no output is collected.
     def run_command_silently(command)
       with_shell_instance do
-        Chef::Log.debug("RVM::Shell::ChefWrapper silently executing: " +
+        Chef::Log.debug("ZRVM::Shell::ChefWrapper silently executing: " +
           "[#{wrapped_command(command)}]")
         stdin.puts silent_command(command)
       end
@@ -64,7 +64,7 @@ def create_rvm_shell_chef_wrapper
     def with_shell_instance(&blk)
       no_current = @current.nil?
       if no_current
-        Chef::Log.debug("RVM::Shell::ChefWrapper subprocess executing with " +
+        Chef::Log.debug("ZRVM::Shell::ChefWrapper subprocess executing with " +
           "environment of: [#{shell_params.inspect}].")
         @current = popen4(self.shell_executable, shell_params)
         invoke_setup!
@@ -93,7 +93,7 @@ def create_rvm_shell_chef_wrapper
       end
     end
   end
-  ::RVM::Shell.const_set('ChefWrapper', klass)
+  ::ZRVM::Shell.const_set('ChefWrapper', klass)
 
-  ::RVM::Shell.default_wrapper = ::RVM::Shell::ChefWrapper
+  ::ZRVM::Shell.default_wrapper = ::ZRVM::Shell::ChefWrapper
 end

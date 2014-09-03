@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Provider:: default_ruby
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
@@ -19,14 +19,14 @@
 # limitations under the License.
 #
 
-include Chef::RVM::StringHelpers
-include Chef::RVM::EnvironmentHelpers
+include Chef::ZRVM::StringHelpers
+include Chef::ZRVM::EnvironmentHelpers
 
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @gemset       = select_gemset(new_resource.ruby_string)
   @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(new_resource.user)
 end
 
 action :create do
@@ -34,14 +34,14 @@ action :create do
 
   # ensure ruby is installed and gemset exists (if specified)
   unless env_exists?(@ruby_string)
-    e = rvm_environment @ruby_string do
+    e = z_rvm_environment @ruby_string do
       user    new_resource.user
       action  :nothing
     end
     e.run_action(:create)
   end
 
-  Chef::Log.info("Setting default ruby to rvm_ruby[#{@ruby_string}]")
+  Chef::Log.info("Setting default ruby to z_rvm_ruby[#{@ruby_string}]")
   @rvm_env.rvm :use, @ruby_string, :default => true
   new_resource.updated_by_last_action(true)
 end

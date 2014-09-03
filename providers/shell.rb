@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Provider:: shell
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
@@ -19,16 +19,16 @@
 # limitations under the License.
 #
 
-include Chef::RVM::StringHelpers
-include Chef::RVM::EnvironmentHelpers
-include Chef::RVM::ShellHelpers
+include Chef::ZRVM::StringHelpers
+include Chef::ZRVM::EnvironmentHelpers
+include Chef::ZRVM::ShellHelpers
 
 def load_current_resource
   @user_rvm     = user_installed_rvm? ? new_resource.user : nil
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string), @user_rvm)
   @gemset       = select_gemset(new_resource.ruby_string)
   @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(@user_rvm)
+  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(@user_rvm)
 end
 
 action :run do

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Recipe:: system
 #
 # Copyright 2010, 2011 Fletcher Nichol
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "rvm::system_install"
+include_recipe "z_rvm::system_install"
 
 perform_install_rubies  = node['rvm']['install_rubies'] == true ||
                   node['rvm']['install_rubies'] == "true"

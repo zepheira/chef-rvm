@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: rvm
-# Library:: Chef::RVM::RecipeHelpers
+# Cookbook Name:: z_rvm
+# Library:: Chef::ZRVM::RecipeHelpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,7 +20,7 @@
 #
 
 class Chef
-  module RVM
+  module ZRVM
     module RecipeHelpers
       def build_script_flags(branch, version = "head")
         if version =~ /\A\d+\.\d+\.\d+/ && %w{stable master none}.include?(branch)
@@ -38,7 +38,7 @@ class Chef
         end
       end
 
-      def install_pkg_prereqs(install_now = node.recipe?("rvm::gem_package"))
+      def install_pkg_prereqs(install_now = node.recipe?("z_rvm::gem_package"))
         return if mac_with_no_homebrew
 
         node['rvm']['install_pkgs'].each do |pkg|
@@ -55,7 +55,7 @@ class Chef
       end
 
       def install_rvm(opts = {})
-        install_now = node.recipe?("rvm::gem_package")
+        install_now = node.recipe?("z_rvm::gem_package")
 
         if opts[:user]
           user_dir    = opts[:rvm_prefix]
@@ -94,7 +94,7 @@ class Chef
       end
 
       def upgrade_rvm(opts = {})
-        install_now = node.recipe?("rvm::gem_package")
+        install_now = node.recipe?("z_rvm::gem_package")
 
         if opts[:user]
           user_dir    = opts[:rvm_prefix]
@@ -130,7 +130,7 @@ class Chef
       end
 
       def rvmrc_template(opts = {})
-        install_now = node.recipe?("rvm::gem_package")
+        install_now = node.recipe?("z_rvm::gem_package")
 
         if opts[:user]
           system_install  = false
@@ -174,7 +174,7 @@ class Chef
             ruby_rubygems_version = nil
           end
 
-          rvm_ruby ruby do
+          z_rvm_ruby ruby do
             patch            ruby_patch
             user             opts[:user]
             rubygems_version ruby_rubygems_version
@@ -182,13 +182,13 @@ class Chef
         end
 
         # set a default ruby
-        rvm_default_ruby opts[:default_ruby] do
+        z_rvm_default_ruby opts[:default_ruby] do
           user  opts[:user]
         end
 
         # install global gems
         opts[:global_gems].each do |gem|
-          rvm_global_gem gem[:name] do
+          z_rvm_global_gem gem[:name] do
             user      opts[:user]
             [:version, :action, :options, :source].each do |attr|
               send(attr, gem[attr]) if gem[attr]
@@ -198,12 +198,12 @@ class Chef
 
         # install additional gems
         opts[:gems].each_pair do |rstring, gems|
-          rvm_environment rstring do
+          z_rvm_environment rstring do
             user  opts[:user]
           end
 
           gems.each do |gem|
-            rvm_gem gem[:name] do
+            z_rvm_gem gem[:name] do
               ruby_string   rstring
               user          opts[:user]
               [:version, :action, :options, :source].each do |attr|

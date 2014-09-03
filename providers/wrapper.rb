@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Provider:: wrapper
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
@@ -19,14 +19,14 @@
 # limitations under the License.
 #
 
-include Chef::RVM::StringHelpers
-include Chef::RVM::EnvironmentHelpers
+include Chef::ZRVM::StringHelpers
+include Chef::ZRVM::EnvironmentHelpers
 
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @gemset       = select_gemset(new_resource.ruby_string)
   @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(new_resource.user)
 
   if new_resource.binary.nil?
     @binaries = new_resource.binaries || []
@@ -54,7 +54,7 @@ private
 
 def create_wrapper(bin)
   full_bin = "#{new_resource.prefix}_#{bin}"
-  resource_name = "rvm_wrapper[#{full_bin}::#{@ruby_string}]"
+  resource_name = "z_rvm_wrapper[#{full_bin}::#{@ruby_string}]"
   script = ::File.join(@rvm_env.config["rvm_path"], "bin", full_bin)
 
   if ::File.exists?(script)

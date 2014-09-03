@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Recipe:: user
 #
 # Copyright 2011 Fletcher Nichol
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'rvm::user_install'
+include_recipe 'z_rvm::user_install'
 
 Array(node['rvm']['user_installs']).each do |rvm_user|
   perform_install_rubies  = rvm_user['install_rubies'] == true ||

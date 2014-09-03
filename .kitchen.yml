@@ -25,21 +25,21 @@ suites:
 - name: stock_system_and_user
   run_list:
   - recipe[user::data_bag]
-  - recipe[rvm::system]
-  - recipe[rvm::user]
+  - recipe[z_rvm::system]
+  - recipe[z_rvm::user]
   attributes:
     users:
     - wigglebottom
-    rvm:
+    z_rvm:
       user_installs:
       - user: wigglebottom
         default_ruby: 1.8.7
 - name: rubies
   run_list:
   - recipe[java]
-  - recipe[rvm::system]
+  - recipe[z_rvm::system]
   attributes:
-    rvm:
+    z_rvm:
       default_ruby: system
       rubies:
       - 1.9.3
@@ -51,19 +51,19 @@ suites:
       - ree
 - name: rbx
   run_list:
-  - recipe[rvm::system]
+  - recipe[z_rvm::system]
   attributes:
-    rvm:
+    z_rvm:
       default_ruby: rbx
-- name: rvm_versions
+- name: z_rvm_versions
   run_list:
   - recipe[user::data_bag]
-  - recipe[rvm::user_install]
+  - recipe[z_rvm::user_install]
   attributes:
     users:
     - virgil1
     - virgil2
-    rvm:
+    z_rvm:
       user_installs:
       - user: virgil1
         version: 1.17.10

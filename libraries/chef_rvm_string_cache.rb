@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: rvm
-# Library:: Chef::RVM::StringCache
+# Cookbook Name:: z_rvm
+# Library:: Chef::ZRVM::StringCache
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -22,7 +22,7 @@
 require 'chef/mixin/command'
 
 class Chef
-  module RVM
+  module ZRVM
     module ShellHelpers
       # stub to satisfy StringCache (library load order not guarenteed)
     end
@@ -30,7 +30,7 @@ class Chef
     class StringCache
       class << self
         include Chef::Mixin::Command
-        include Chef::RVM::ShellHelpers
+        include Chef::ZRVM::ShellHelpers
       end
 
       ##

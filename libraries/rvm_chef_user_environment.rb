@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: rvm
-# Library:: RVM::ChefUserEnvironment
+# Cookbook Name:: z_rvm
+# Library:: ZRVM::ChefUserEnvironment
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,7 +20,7 @@
 #
 
 def create_rvm_chef_user_environment
-  klass = Class.new(::RVM::Environment) do
+  klass = Class.new(::ZRVM::Environment) do
     attr_reader :user, :source_environment
 
     def initialize(user = nil, environment_name = "default", options = {})
@@ -36,7 +36,7 @@ def create_rvm_chef_user_environment
 
       merge_config! options
       @environment_name = environment_name
-      @shell_wrapper = ::RVM::Shell::ChefWrapper.new(@user)
+      @shell_wrapper = ::ZRVM::Shell::ChefWrapper.new(@user)
       @shell_wrapper.setup do |s|
         if source_environment
           source_rvm_environment
@@ -49,7 +49,7 @@ def create_rvm_chef_user_environment
       @@root_rvm_path = path
     end
   end
-  ::RVM.const_set('ChefUserEnvironment', klass)
+  ::ZRVM.const_set('ChefUserEnvironment', klass)
 
-  ::RVM::ChefUserEnvironment.root_rvm_path = node['rvm']['root_path']
+  ::ZRVM::ChefUserEnvironment.root_rvm_path = node['rvm']['root_path']
 end

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Provider:: global_gem
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
@@ -19,10 +19,10 @@
 # limitations under the License.
 #
 
-include Chef::RVM::RubyHelpers
+include Chef::ZRVM::RubyHelpers
 
 def load_current_resource
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(new_resource.user)
 end
 
 [:install, :upgrade, :remove, :purge].each do |exec_action|
@@ -40,12 +40,12 @@ end
 private
 
 ##
-# Wraps the rvm_gem resource
+# Wraps the z_rvm_gem resource
 #
 # @param [Symbol] action to be performed with gem_package provider
 # @param [optional, String, #to_s] the fully qualifed rvm string
 def gem_package_wrapper(exec_action, ruby_global_gemset)
-  g = rvm_gem new_resource.package_name do
+  g = z_rvm_gem new_resource.package_name do
     ruby_string ruby_global_gemset
     source      new_resource.source if new_resource.source
     options     new_resource.options if new_resource.options

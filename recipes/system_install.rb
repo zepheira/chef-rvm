@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Recipe:: system_install
 #
 # Copyright 2010, 2011 Fletcher Nichol
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'rvm'
+include_recipe 'z_rvm'
 
 script_flags      = build_script_flags(node['rvm']['branch'], node['rvm']['version'])
 upgrade_strategy  = build_upgrade_strategy(node['rvm']['upgrade'])

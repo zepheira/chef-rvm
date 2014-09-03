@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Attributes:: vagrant
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Recipe:: gem_package
 #
 # Copyright 2011, Fletcher Nichol
@@ -29,5 +29,5 @@ end
 patch_gem_package
 
 ::Chef::Log.info "gem_package resource has been patched to use provider " <<
-  "Chef::Provider::Package::RVMRubygems and will install gems to " <<
+  "Chef::Provider::Package::ZRVMRubygems and will install gems to " <<
   "the #{rvm_descriptor}."

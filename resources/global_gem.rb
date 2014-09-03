@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Resource:: global_gem
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>

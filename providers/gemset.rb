@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rvm
+# Cookbook Name:: z_rvm
 # Provider:: gemset
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
@@ -19,9 +19,9 @@
 # limitations under the License.
 #
 
-include Chef::RVM::StringHelpers
-include Chef::RVM::RubyHelpers
-include Chef::RVM::GemsetHelpers
+include Chef::ZRVM::StringHelpers
+include Chef::ZRVM::RubyHelpers
+include Chef::ZZ_RVM::GemsetHelpers
 
 def load_current_resource
   if new_resource.ruby_string
@@ -32,12 +32,12 @@ def load_current_resource
     @gemset     = select_gemset(new_resource.gemset)
   end
   @ruby_string  = "#{@rubie}@#{@gemset}"
-  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(new_resource.user)
 end
 
 action :create do
   unless ruby_installed?(@rubie)
-    r = rvm_ruby @rubie do
+    r = z_rvm_ruby @rubie do
       user    new_resource.user
       action :nothing
     end
@@ -45,16 +45,16 @@ action :create do
   end
 
   if gemset_exists?(:ruby => @rubie, :gemset => @gemset)
-    Chef::Log.debug("rvm_gemset[#{@ruby_string}] already exists, so skipping")
+    Chef::Log.debug("z_rvm_gemset[#{@ruby_string}] already exists, so skipping")
   else
-    Chef::Log.info("Creating rvm_gemset[#{@ruby_string}]")
+    Chef::Log.info("Creating z_rvm_gemset[#{@ruby_string}]")
 
     @rvm_env.use @rubie
     if @rvm_env.gemset_create @gemset
       update_installed_gemsets(@rubie)
-      Chef::Log.debug("Creation of rvm_gemset[#{@ruby_string}] was successful.")
+      Chef::Log.debug("Creation of z_rvm_gemset[#{@ruby_string}] was successful.")
     else
-      Chef::Log.warn("Failed to create rvm_gemset[#{@ruby_string}].")
+      Chef::Log.warn("Failed to create z_rvm_gemset[#{@ruby_string}].")
     end
 
     new_resource.updated_by_last_action(true)
@@ -63,44 +63,44 @@ end
 
 action :delete do
   if gemset_exists?(:ruby => @rubie, :gemset => @gemset)
-    Chef::Log.info("Deleting rvm_gemset[#{@ruby_string}]")
+    Chef::Log.info("Deleting z_rvm_gemset[#{@ruby_string}]")
 
     @rvm_env.use @rubie
     if @rvm_env.gemset_delete @gemset
       update_installed_gemsets(@rubie)
-      Chef::Log.debug("Deletion of rvm_gemset[#{@ruby_string}] was successful.")
+      Chef::Log.debug("Deletion of z_rvm_gemset[#{@ruby_string}] was successful.")
       new_resource.updated_by_last_action(true)
     else
-      Chef::Log.warn("Failed to delete rvm_gemset[#{@ruby_string}].")
+      Chef::Log.warn("Failed to delete z_rvm_gemset[#{@ruby_string}].")
     end
   else
-    Chef::Log.debug("rvm_gemset[#{@ruby_string}] does not exist, so skipping")
+    Chef::Log.debug("z_rvm_gemset[#{@ruby_string}] does not exist, so skipping")
   end
 end
 
 action :empty do
   if gemset_exists?(:ruby => @rubie, :gemset => @gemset)
-    Chef::Log.info("Emptying rvm_gemset[#{@ruby_string}]")
+    Chef::Log.info("Emptying z_rvm_gemset[#{@ruby_string}]")
 
     @rvm_env.use @ruby_string
     if @rvm_env.gemset_empty
       update_installed_gemsets(@rubie)
-      Chef::Log.debug("Emptying of rvm_gemset[#{@ruby_string}] was successful.")
+      Chef::Log.debug("Emptying of z_rvm_gemset[#{@ruby_string}] was successful.")
       new_resource.updated_by_last_action(true)
     else
-      Chef::Log.warn("Failed to empty rvm_gemset[#{@ruby_string}].")
+      Chef::Log.warn("Failed to empty z_rvm_gemset[#{@ruby_string}].")
     end
   else
-    Chef::Log.debug("rvm_gemset[#{@ruby_string}] does not exist, so skipping")
+    Chef::Log.debug("z_rvm_gemset[#{@ruby_string}] does not exist, so skipping")
   end
 end
 
 action :update do
-  Chef::Log.info("Updating rvm_gemset[#{@ruby_string}]")
+  Chef::Log.info("Updating z_rvm_gemset[#{@ruby_string}]")
 
   # create gemset if it doesn't exist
   unless gemset_exists?(:ruby => @rubie, :gemset => @gemset)
-    c = rvm_gemset @ruby_string do
+    c = z_rvm_gemset @ruby_string do
       user    new_resource.user
       action :nothing
     end
@@ -110,9 +110,9 @@ action :update do
   @rvm_env.use @ruby_string
   if @rvm_env.gemset_update
     update_installed_gemsets(@rubie)
-    Chef::Log.debug("Updating of rvm_gemset[#{@ruby_string}] was successful.")
+    Chef::Log.debug("Updating of z_rvm_gemset[#{@ruby_string}] was successful.")
     new_resource.updated_by_last_action(true)
   else
-    Chef::Log.warn("Failed to update rvm_gemset[#{@ruby_string}].")
+    Chef::Log.warn("Failed to update z_rvm_gemset[#{@ruby_string}].")
   end
 end
