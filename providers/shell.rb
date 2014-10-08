@@ -19,9 +19,9 @@
 # limitations under the License.
 #
 
-include Chef::ZRVM::StringHelpers
-include Chef::ZRVM::EnvironmentHelpers
-include Chef::ZRVM::ShellHelpers
+include Chef::RVM::StringHelpers
+include Chef::RVM::EnvironmentHelpers
+include Chef::RVM::ShellHelpers
 
 def load_current_resource
   @user_rvm     = user_installed_rvm? ? new_resource.user : nil

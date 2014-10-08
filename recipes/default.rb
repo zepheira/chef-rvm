@@ -29,12 +29,12 @@ create_rvm_chef_user_environment
 
 class Chef::Resource
   # mix in #rvm_cmd_wrap helper into resources
-  include Chef::ZRVM::ShellHelpers
+  include Chef::RVM::ShellHelpers
 end
 
 class Chef::Recipe
   # mix in recipe helpers
-  include Chef::ZRVM::ShellHelpers
-  include Chef::ZRVM::RecipeHelpers
-  include Chef::ZRVM::StringHelpers
+  include Chef::RVM::ShellHelpers
+  include Chef::RVM::RecipeHelpers
+  include Chef::RVM::StringHelpers
 end

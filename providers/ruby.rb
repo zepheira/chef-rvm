@@ -19,13 +19,13 @@
 # limitations under the License.
 #
 
-include Chef::ZRVM::StringHelpers
-include Chef::ZRVM::RubyHelpers
+include Chef::RVM::StringHelpers
+include Chef::RVM::RubyHelpers
 
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @ruby_string  = new_resource.ruby_string
-  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(
     new_resource.user, "default",
     :rvm_rubygems_version => new_resource.rubygems_version,
     :source_environment => false
@@ -61,7 +61,7 @@ action :install do
       end
     else
       Chef::Log.warn("Failed to install z_rvm_ruby[#{@rubie}]. " +
-        "Check logs in #{::ZRVM.path}/log/#{@rubie}")
+        "Check logs in #{::RVM.path}/log/#{@rubie}")
     end
 
     Chef::Log.info("z_rvm_ruby[#{@rubie}] build time was " +
@@ -81,7 +81,7 @@ action :uninstall do
       new_resource.updated_by_last_action(true)
     else
       Chef::Log.warn("Failed to uninstall z_rvm_ruby[#{@rubie}]. " +
-        "Check logs in #{::ZRVM.path}/log/#{@rubie}")
+        "Check logs in #{::RVM.path}/log/#{@rubie}")
     end
   else
     Chef::Log.debug("z_rvm_ruby[#{@rubie}] was not installed, so skipping")
@@ -100,7 +100,7 @@ action :remove do
       new_resource.updated_by_last_action(true)
     else
       Chef::Log.warn("Failed to remove z_rvm_ruby[#{@rubie}]. " +
-        "Check logs in #{::ZRVM.path}/log/#{@rubie}")
+        "Check logs in #{::RVM.path}/log/#{@rubie}")
     end
   else
     Chef::Log.debug("z_rvm_ruby[#{@rubie}] was not installed, so skipping")

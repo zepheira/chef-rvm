@@ -19,9 +19,9 @@
 # limitations under the License.
 #
 
-include Chef::ZRVM::StringHelpers
-include Chef::ZRVM::RubyHelpers
-include Chef::ZRVM::GemsetHelpers
+include Chef::RVM::StringHelpers
+include Chef::RVM::RubyHelpers
+include Chef::RVM::GemsetHelpers
 
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))

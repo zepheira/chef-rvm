@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: z_rvm
-# Provider:: Chef::Provider::Package::ZRVMRubygems
+# Provider:: Chef::Provider::Package::RVMRubygems
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,24 +20,24 @@
 #
 
 class Chef
-  module ZRVM
+  module RVM
     module ShellHelpers
-      # stub to satisfy ZRVMRubygems (library load order not guarenteed)
+      # stub to satisfy RVMRubygems (library load order not guarenteed)
     end
     module SetHelpers
-      # stub to satisfy ZRVMRubygems (library load order not guarenteed)
+      # stub to satisfy RVMRubygems (library load order not guarenteed)
     end
   end
 
   class Provider
     class Package
-      class ZRVMRubygems < Chef::Provider::Package::Rubygems
-        include Chef::ZRVM::ShellHelpers
-        include Chef::ZRVM::SetHelpers
+      class RVMRubygems < Chef::Provider::Package::Rubygems
+        include Chef::RVM::ShellHelpers
+        include Chef::RVM::SetHelpers
 
-        class ZRVMGemEnvironment < AlternateGemEnvironment
-          include Chef::ZRVM::ShellHelpers
-          include Chef::ZRVM::SetHelpers
+        class RVMGemEnvironment < AlternateGemEnvironment
+          include Chef::RVM::ShellHelpers
+          include Chef::RVM::SetHelpers
 
           attr_reader :ruby_strings, :user
 
@@ -94,7 +94,7 @@ class Chef
           super
           new_resource.gem_binary("gem") unless original_gem_binary
           user = new_resource.respond_to?("user") ? new_resource.user : nil
-          @gem_env = ZRVMGemEnvironment.new(gem_binary_path, ruby_strings, user)
+          @gem_env = RVMGemEnvironment.new(gem_binary_path, ruby_strings, user)
         end
 
         ##

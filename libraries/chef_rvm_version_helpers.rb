@@ -1,5 +1,5 @@
 class Chef
-  module ZRVM
+  module RVM
     module ShellHelpers
       # stub to satisfy VersionCache (library load order not guarenteed)
     end
@@ -13,7 +13,7 @@ class Chef
     class VersionCache
       class << self
         include Chef::Mixin::ShellOut
-        include Chef::ZRVM::ShellHelpers
+        include Chef::RVM::ShellHelpers
       end
 
       def self.fetch_version(user = nil)

@@ -1,5 +1,5 @@
 class Chef
-  module ZRVM
+  module RVM
     module SetHelpers
       def rvm_do(user = nil)
         # Use Gem's version comparing code to compare the two strings

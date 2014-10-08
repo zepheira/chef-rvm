@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: z_rvm
-# Library:: Chef::ZRVM::StringHelpers
+# Library:: Chef::RVM::StringHelpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,7 +20,7 @@
 #
 
 class Chef
-  module ZRVM
+  module RVM
     module StringHelpers
       ##
       # Filters out any gemset declarations in an RVM Ruby string

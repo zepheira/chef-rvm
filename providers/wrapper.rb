@@ -19,14 +19,14 @@
 # limitations under the License.
 #
 
-include Chef::ZRVM::StringHelpers
-include Chef::ZRVM::EnvironmentHelpers
+include Chef::RVM::StringHelpers
+include Chef::RVM::EnvironmentHelpers
 
 def load_current_resource
   @rubie        = normalize_ruby_string(select_ruby(new_resource.ruby_string))
   @gemset       = select_gemset(new_resource.ruby_string)
   @ruby_string  = @gemset.nil? ? @rubie : "#{@rubie}@#{@gemset}"
-  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
 
   if new_resource.binary.nil?
     @binaries = new_resource.binaries || []

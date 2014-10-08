@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: z_rvm
-# Library:: Chef::ZRVM::EnvironmentHelpers
+# Library:: Chef::RVM::EnvironmentHelpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,7 +20,7 @@
 #
 
 class Chef
-  module ZRVM
+  module RVM
     module RubyHelpers
       # stub to satisfy EnvironmentHelpers (library load order not guarenteed)
     end

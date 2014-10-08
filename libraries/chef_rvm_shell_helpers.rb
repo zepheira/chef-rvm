@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: z_rvm
-# Library:: Chef::ZRVM::ShellHelpers
+# Library:: Chef::RVM::ShellHelpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,7 +20,7 @@
 #
 
 class Chef
-  module ZRVM
+  module RVM
     module ShellHelpers
       ##
       # Finds the correct shell profile to source to init an RVM-aware

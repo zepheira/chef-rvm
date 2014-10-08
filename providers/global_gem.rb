@@ -19,10 +19,10 @@
 # limitations under the License.
 #
 
-include Chef::ZRVM::RubyHelpers
+include Chef::RVM::RubyHelpers
 
 def load_current_resource
-  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
 end
 
 [:install, :upgrade, :remove, :purge].each do |exec_action|

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: z_rvm
-# Library:: Chef::ZRVM::RubyHelpers
+# Library:: Chef::RVM::RubyHelpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,7 +20,7 @@
 #
 
 class Chef
-  module ZRVM
+  module RVM
     module RubyHelpers
       ##
       # Lists all installed RVM Rubies on the system.

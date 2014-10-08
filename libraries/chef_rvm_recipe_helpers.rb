@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: z_rvm
-# Library:: Chef::ZRVM::RecipeHelpers
+# Library:: Chef::RVM::RecipeHelpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,7 +20,7 @@
 #
 
 class Chef
-  module ZRVM
+  module RVM
     module RecipeHelpers
       def build_script_flags(branch, version = "head")
         if version =~ /\A\d+\.\d+\.\d+/ && %w{stable master none}.include?(branch)

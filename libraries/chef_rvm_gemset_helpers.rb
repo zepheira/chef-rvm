@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: z_rvm
-# Library:: Chef::ZRVM::GemsetHelpers
+# Library:: Chef::RVM::GemsetHelpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -20,7 +20,7 @@
 #
 
 class Chef
-  module ZRVM
+  module RVM
     module GemsetHelpers
       ##
       # Lists all gemsets for a given RVM Ruby.

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: z_rvm
-# Library:: Chef::ZRVM::RecipeHelpers
+# Library:: Chef::RVM::RecipeHelpers
 #
 # Author:: Fletcher Nichol <fnichol@nichol.ca>
 #
@@ -29,10 +29,10 @@ require 'minitest/autorun'
 require_library 'chef_rvm_recipe_helpers'
 
 class Dummy
-  include Chef::ZRVM::RecipeHelpers
+  include Chef::RVM::RecipeHelpers
 end
 
-describe 'Chef::ZRVM::RecipeHelpers' do
+describe 'Chef::RVM::RecipeHelpers' do
 
   subject do
     Dummy.new

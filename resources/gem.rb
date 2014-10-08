@@ -33,5 +33,5 @@ attribute :user,          :kind_of => String
 def initialize(*args)
   super
   @action = :install
-  @provider = Chef::Provider::Package::ZRVMRubygems
+  @provider = Chef::Provider::Package::RVMRubygems
 end

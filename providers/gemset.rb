@@ -19,9 +19,9 @@
 # limitations under the License.
 #
 
-include Chef::ZRVM::StringHelpers
-include Chef::ZRVM::RubyHelpers
-include Chef::ZRVM::GemsetHelpers
+include Chef::RVM::StringHelpers
+include Chef::RVM::RubyHelpers
+include Chef::RVM::GemsetHelpers
 
 def load_current_resource
   if new_resource.ruby_string
@@ -32,7 +32,7 @@ def load_current_resource
     @gemset     = select_gemset(new_resource.gemset)
   end
   @ruby_string  = "#{@rubie}@#{@gemset}"
-  @rvm_env      = ::ZRVM::ChefUserEnvironment.new(new_resource.user)
+  @rvm_env      = ::RVM::ChefUserEnvironment.new(new_resource.user)
 end
 
 action :create do
