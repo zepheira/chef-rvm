@@ -126,7 +126,7 @@ class Chef
           # ensure each ruby is installed and gemset exists
           ruby_strings.each do |rubie|
             next if rubie == 'system'
-            e = z_rvm_environment rubie do
+            e = ::Chef:Resource::ZRvmEnvironment rubie do
               user    gem_env.user if gem_env.user
               action :nothing
             end
